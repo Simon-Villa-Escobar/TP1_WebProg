@@ -1,51 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Loisirs pour les étudiants!</title>
-        <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <header>
-            <img src="uqtr.png" alt="Logo UQTR" class="logo">
-            <h1 class="Head_txt">Loisirs pour les étudiants!</h1>
-        </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loisirs pour les étudiants!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-        <table class="menu">
-            <tr>
-                <td>Accueil</td>
-            </tr>
-            <tr>
-                <td>S'inscrire</td>
-            </tr>
-            <tr>
-                <td>
-                    Localiser une actualité
-                </td>
-            </tr>
-        </table>
-        <main>
-            <section>
-                <h2>Notre but:</h2>
-                <p>Notre site propose aux étudiants désireux de réaliser une ou plusieurs activités 
-                    de loisir de rejoindre les différentes activités proposées dans la liste suivante
-                     en 3 étapes
-                     <ul>
-                        <li>S'inscrire</li>
-                        <li>Choisir une ou plusieurs activités</li>
-                        <li>Commencer les activités en groupe</li>
-                     </ul>
+  <header class="site-header">
+    <img src="uqtr.png" alt="Logo UQTR" class="logo">
+    <h1 class="Head_txt">Loisirs pour les étudiants!</h1>
+  </header>
 
-                     Les différentes activités de groupe des groupes sont la responsabilité des 
-                     professionnels. Il s'agit de passionnés de domaine qui vous feront découvrir 
-                     des plans inédits de vos loisirs préférés. Qu'attendez-vous... ? Rejoignez-nous!
-                </p>
-            </section>
-            <table class="table_finale">
-                
-            </table>
-        </main>
-    </body>
+  <div class="page">
+    <table class="menu" cellspacing="0" cellpadding="8">
+      <tr><td><a href="index.html">Accueil</a></td></tr>
+      <tr><td><a href="#sinscrire">S'inscrire</a></td></tr>
+      <tr><td><a href="#localiser">Localiser une activité</a></td></tr>
+    </table>
+
+    <main class="content">
+      <section class="section1">
+        <h2>Notre but :</h2>
+        <p>
+          Notre site propose aux étudiants désireux de réaliser une ou plusieurs activités de loisir
+          de rejoindre les différentes activités proposées dans la liste suivante en 3 étapes :
+        </p>
+        <ul>
+          <li>S'inscrire</li>
+          <li>Choisir une ou plusieurs activités</li>
+          <li>Commencer les activités en groupe</li>
+        </ul>
+        <p>
+          Les différentes activités de groupe sont la responsabilité des professionnels. Il s'agit de passionnés
+          du domaine qui vous feront découvrir des plans inédits de vos loisirs préférés. Qu'attendez-vous… ?
+          Rejoignez-nous !
+        </p>
+      </section>
+
+      <h3>Liste des activités disponibles</h3>
+      <table class="table_finale" width="100%" cellspacing="0" cellpadding="6">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Activité</th>
+            <th>Responsable</th>
+            <th>Nombre d’inscrits</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Natation</td><td>Michel Provencher</td><td>7</td></tr>
+          <tr><td>2</td><td>Badminton</td><td>Daniel Lefebvre</td><td>15</td></tr>
+          <tr><td>3</td><td>Randonnée</td><td>Catherine Pelletier</td><td>10</td></tr>
+        </tbody>
+      </table>
+
+      <div id="sinscrire"></div>
+      <div id="localiser"></div>
+    </main>
+  </div>
+</body>
 </html>

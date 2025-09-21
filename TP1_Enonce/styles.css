@@ -1,12 +1,64 @@
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 125px;
-    margin-top: 100px;
+
+body { margin: 16px; font-family: 'Yatra One', cursive; }
+
+
+.site-header {
+  display: flex;
+  justify-content: space-between;   
+  align-items: center;
+  padding: 10px 30px;
+  margin-top: 12px;
+  border-bottom: 1px solid #ccc;
+}
+.logo { width: 500px; height: auto; }
+.Head_txt { margin: 0; font-family: 'Yatra One'/*, cursive*/; }
+
+
+.page {
+  display: grid;
+  grid-template-columns: 200px 1fr;  
+  gap: 16px;
+  margin-top: 16px;
 }
 
-.logo {
-    width: 400px;
-    height: 150px;
+
+.menu {
+  border-collapse: collapse;
+  border: 1px solid #bfbfbf;
+  background: #fff;
+  width: 100%;
 }
+.menu td { /* Style pour chaque cellule de la ligne  */
+  border-bottom: 1px solid #e6e6e6;
+  padding: 8px 10px;
+}
+.menu tr:last-child td { border-bottom: none; } /* Pas de bordure sur la dernière ligne */
+.menu a {
+  text-decoration: none;
+  color: #222;
+  display: block;
+}
+.menu a:hover { background: #f0f0f0; } /* Lorsque la souris passe sur les options de menu
+                                            les options deviennent grises  */
+
+
+.content {
+  border: 1px solid #bfbfbf;
+  background: #fff;
+  padding: 14px;
+  border-radius: 6px;
+}
+
+
+.table_finale {
+  border-collapse: collapse;
+  border: 1px solid #bfbfbf;   
+  background: #fff;
+}
+.table_finale th,
+.table_finale td {  /* Style pour chaque cellule de la ligne  */
+  border: 1px solid #bfbfbf;   
+  text-align: left;
+  padding: 6px 8px;
+}
+.table_finale thead th { background: #f7f7f7; }
