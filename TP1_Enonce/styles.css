@@ -1,76 +1,113 @@
 
-body { 
-    margin: 16px; 
-    font-family: 'Yatra One', cursive; 
+body{
+  margin:0;
+  color:#000;
+  background:#fff;
+  font-family: 'Yatra One', cursive;
 }
 
 
-.site-header {
-    display: flex;
-    justify-content: space-between;   
-    align-items: center;
-    padding: 10px 30px;
-    margin-top: 12px;
-    border-bottom: 1px solid #ccc;
+.site-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 30px;
+  margin:20px;
+  border:1px solid #bfbfbf;
+  background:#fff;
 }
-.logo { 
-    width: 500px; 
-    height: auto; 
-}
-
-.Head_txt { 
-    margin: 0; 
-    font-family: 'Yatra One'; 
-}
+.logo{ height:100px; width:auto; }
+.Head_txt{ margin:0; font-size:28px; text-align:right; }
 
 
-.page {
-    display: grid;
-    grid-template-columns: 200px 1fr;  
-    gap: 16px;
-    margin-top: 16px;
-    align-items: start;
+.page{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:16px;
+  margin:0 20px 20px;
 }
 
 
-.menu {
-    border-collapse: collapse;
-    border: 1px solid #bfbfbf;
-    background: #fff;
-    width: 100%;
-  
+.menu{
+  border-collapse:collapse;
+  border:1px solid #bfbfbf;
+  background:#fff;
+  width:100%;
+  align-self:start;
 }
-.menu td { /* Style pour chaque cellule de la ligne  */
-    border-bottom: 1px solid #e6e6e6;
-    padding: 8px 10px;
+.menu td{ border-bottom:1px solid #e6e6e6; padding:8px 10px; }
+.menu tr:last-child td{ border-bottom:none; }
+.menu a{
+  display:block;
+  text-decoration:none;
+  color:#000;
+  background:#fff;
 }
-.menu tr:last-child td { border-bottom: none; } /* Pas de bordure sur la dernière ligne */
-.menu a {
-    text-decoration: none;
-    color: #222;
-    display: block;
-}
-.menu a:hover { background: #f0f0f0; } /* Lorsque la souris passe sur les options de menu
-                                            les options deviennent grises  */
-
-
-.content {
-    border: 1px solid #bfbfbf;
-    background: #fff;
-    padding: 14px;
-    border-radius: 6px;
+.menu a:hover{
+  background:#000;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
 }
 
 
-.table_finale {
-    border-collapse: collapse;
-    border: 1px solid #bfbfbf;   
-    background: #fff;
+.submenu{
+  list-style:none;
+  margin:6px 0 0;
+  padding:0;
+  display:none;
 }
-.table_finale th,
-.table_finale td {  /* Style pour chaque cellule de la ligne  */
-    border: 1px solid #bfbfbf;   
-    text-align: left;
-    padding: 6px 8px;
+.item:hover .submenu{ display:block; }
+.submenu button{
+  all:unset;
+  display:block;
+  width:100%;
+  padding:6px 8px;
+  border:1px solid #e6e6e6;
+  background:#fff;
+  cursor:pointer;
 }
-.table_finale thead th { background: #f7f7f7; }
+.submenu button:hover{
+  background:#000;
+  color:#fff;
+  font-weight:700;
+}
+
+
+.content-box{
+  border:1px solid #bfbfbf;
+  background:#fff;
+  padding:14px;
+  border-radius:4px;
+  display:none;      /* solo Accueil visible al inicio */
+}
+.content-box.active{ display:block; }
+
+
+form{ display:grid; gap:14px; max-width:700px; }
+fieldset{ border:1px solid #bfbfbf; border-radius:6px; padding:10px 12px; }
+legend{ padding:0 6px; }
+label{ display:grid; gap:6px; margin:6px 0; }
+input[type="text"], input[type="date"], select, textarea{
+  border:1px solid #bfbfbf; border-radius:6px; padding:8px 10px; font:inherit; width:100%;
+}
+.ligne{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.inline{ display:inline-flex; align-items:center; gap:6px; }
+.actions{ display:flex; gap:10px; }
+.actions button{
+  padding:10px 14px; border:1px solid #bfbfbf; border-radius:6px; background:#fff; cursor:pointer;
+}
+.actions button:hover{ background:#000; color:#fff; font-weight:700; }
+.errors{ color:#b00020; white-space:pre-line; margin-top:6px; }
+
+
+.table_finale{
+  border-collapse:collapse; border:1px solid #bfbfbf; background:#fff;
+}
+.table_finale th, .table_finale td{
+  border:1px solid #bfbfbf; text-align:left; padding:6px 8px;
+}
+.table_finale thead th{ background:#f7f7f7; }
+
+
+.map-wrap{ border:1px solid #bfbfbf; border-radius:8px; overflow:hidden; }

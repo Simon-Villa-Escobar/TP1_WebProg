@@ -4,62 +4,162 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Loisirs pour les étudiants!</title>
+
+ 
   <link href="https://fonts.google.com/specimen/Yatra+One?selection.family=Yatra+One" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
 
   <header class="site-header">
     <img src="uqtr.png" alt="Logo UQTR" class="logo">
     <h1 class="Head_txt">Loisirs pour les étudiants!</h1>
   </header>
 
+
   <div class="page">
-    <table class="menu" cellspacing="0" cellpadding="8">
-      <tr><td><a href="index.html">Accueil</a></td></tr>
-      <tr><td><a href="#sinscrire">S'inscrire</a></td></tr>
-      <tr><td><a href="#localiser">Localiser une activité</a></td></tr>
+
+    <table class="menu" cellspacing="0" cellpadding="8" aria-label="Menu">
+      <tr class="item" data-target="accueil">
+        <td>
+          <a href="#accueil">Accueil</a>
+          <ul class="submenu">
+            <li><button type="button" data-target="accueil">Présentation</button></li>
+            <li><button type="button" data-target="accueil">Activités</button></li>
+          </ul>
+        </td>
+      </tr>
+      <tr class="item" data-target="inscription">
+        <td>
+          <a href="#inscription">S’inscrire</a>
+          <ul class="submenu">
+            <li><button type="button" data-target="inscription">Formulaire</button></li>
+          </ul>
+        </td>
+      </tr>
+      <tr class="item" data-target="carte">
+        <td>
+          <a href="#carte">Localiser une activité</a>
+          <ul class="submenu">
+            <li><button type="button" data-target="carte">Carte</button></li>
+          </ul>
+        </td>
+      </tr>
     </table>
 
-    <main class="content">
-      <section class="section1">
-        <h2>Notre but :</h2>
+   
+    <main>
+
+    
+      <section id="accueil" class="content-box active" aria-labelledby="h-accueil">
+        <h2 id="h-accueil">Notre but :</h2>
         <p>
           Notre site propose aux étudiants désireux de réaliser une ou plusieurs activités de loisir
           de rejoindre les différentes activités proposées dans la liste suivante en 3 étapes :
         </p>
         <ul>
-          <li>S'inscrire</li>
+          <li>S’inscrire</li>
           <li>Choisir une ou plusieurs activités</li>
           <li>Commencer les activités en groupe</li>
         </ul>
         <p>
-          Les différentes activités de groupe sont la responsabilité des professionnels. Il s'agit de passionnés
-          du domaine qui vous feront découvrir des plans inédits de vos loisirs préférés. Qu'attendez-vous… ?
-          Rejoignez-nous !
+          Les différentes activités de groupe sont la responsabilité des professionnels.
+          Il s’agit de passionnés du domaine qui vous feront découvrir des plans inédits de vos loisirs préférés.
+          Qu’attendez-vous… ? Rejoignez-nous !
         </p>
+
+        <h3>Liste des activités disponibles</h3>
+        <table id="activities" class="table_finale" width="100%" cellspacing="0" cellpadding="6">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Activité</th>
+              <th>Responsable</th>
+              <th>Nombre d’inscrits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Natation</td><td>Michel Provencher</td><td>7</td></tr>
+            <tr><td>2</td><td>Badminton</td><td>Daniel Lefebvre</td><td>15</td></tr>
+            <tr><td>3</td><td>Randonnée</td><td>Catherine Pelletier</td><td>10</td></tr>
+            <tr><td>4</td><td>Escalade</td><td>Julie Morin</td><td>5</td></tr>
+          </tbody>
+        </table>
       </section>
 
-      <h3>Liste des activités disponibles</h3>
-      <table class="table_finale" width="100%" cellspacing="0" cellpadding="6">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Activité</th>
-            <th>Responsable</th>
-            <th>Nombre d’inscrits</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Natation</td><td>Michel Provencher</td><td>7</td></tr>
-          <tr><td>2</td><td>Badminton</td><td>Daniel Lefebvre</td><td>15</td></tr>
-          <tr><td>3</td><td>Randonnée</td><td>Catherine Pelletier</td><td>10</td></tr>
-        </tbody>
-      </table>
 
-      <div id="sinscrire"></div>
-      <div id="localiser"></div>
+      <section id="inscription" class="content-box" aria-labelledby="h-inscription">
+        <h2 id="h-inscription">Formulaire d’inscription</h2>
+
+        <form id="form-inscription" novalidate>
+          <fieldset>
+            <legend>Identité</legend>
+
+            <label>Nom
+              <input name="nom" type="text" required />
+            </label>
+
+            <label>Prénom
+              <input name="prenom" type="text" required />
+            </label>
+
+            <label>Date de naissance
+              <input name="naissance" type="date" required />
+            </label>
+
+            <div class="ligne">
+              <span>Sexe</span>
+              <label class="inline"><input type="radio" name="sexe" value="H" required /> Homme</label>
+              <label class="inline"><input type="radio" name="sexe" value="F" required /> Femme</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Activité</legend>
+
+            <label>Choisir une activité
+              <select name="activite" id="select-activite" required>
+                <option value="">-- Sélectionner --</option>
+              </select>
+            </label>
+
+            <label>Motivation (optionnel)
+              <textarea name="motivation" rows="4" placeholder="Pourquoi cette activité ?"></textarea>
+            </label>
+          </fieldset>
+
+          <div class="actions">
+            <button type="submit">Envoyer</button>
+            <button type="reset">Réinitialiser</button>
+          </div>
+
+          <div id="form-errors" class="errors" aria-live="polite"></div>
+        </form>
+      </section>
+
+   
+      <section id="carte" class="content-box" aria-labelledby="h-carte">
+        <h2 id="h-carte">Carte</h2>
+        <div class="map-wrap">
+          
+          <iframe
+            title="UQTR"
+            width="100%"
+            height="380"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Universit%C3%A9%20du%20Qu%C3%A9bec%20%C3%A0%20Trois-Rivi%C3%A8res&z=16&output=embed&hl=fr">
+          </iframe>
+        </div>
+      </section>
+
     </main>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
