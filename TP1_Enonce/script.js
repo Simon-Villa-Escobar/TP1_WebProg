@@ -1,107 +1,132 @@
+const TABLE_ID = 'activities';
+const SELECT_ID = 'select-activite';
+const FORM_ID = 'form-inscription';
 
-const sections = document.querySelectorAll('.content-box');
-function showSection(id){
-  sections.forEach(s => s.classList.toggle('active', s.id === id));
-}
-document.querySelectorAll('[data-target]').forEach(el=>{
-  el.addEventListener('click', ()=> showSection(el.dataset.target));
-});
-document.querySelectorAll('.menu .item > td > a').forEach(a=>{
-  a.addEventListener('click', (e)=>{
-    const tr = a.closest('.item');
-    const id = tr?.getAttribute('data-target');
-    if(id){ e.preventDefault(); showSection(id); }
-  });
-});
-showSection('accueil');
-
-
-function readActivityNames(){
-  return Array.from(document.querySelectorAll('#activities tbody tr'))
-    .map(tr => tr.querySelectorAll('td')[1]?.textContent?.trim())
-    .filter(Boolean);
-}
-function fillActivitiesSelect(){
-  const select = document.getElementById('select-activite');
-  if(!select) return;
-  
-  Array.from(select.querySelectorAll('option')).forEach(opt=>{
-    if(opt.value !== '') opt.remove();
-  });
-  readActivityNames().forEach(name=>{
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = name;
-    select.appendChild(opt);
-  });
-}
-fillActivitiesSelect();
-
-
-const STORAGE_KEY = 'tp1_counts';
-
-function loadCounts(){
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-  catch { return {}; }
-}
-function saveCounts(obj){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
-}
-function bootstrapCounts(){
-  const stored = loadCounts();
-  if(Object.keys(stored).length) return stored;
-  
-  const counts = {};
-  document.querySelectorAll('#activities tbody tr').forEach(tr=>{
-    const tds = tr.querySelectorAll('td');
-    const name = tds[1]?.textContent?.trim();
-    const count = parseInt(tds[3]?.textContent?.trim() || '0', 10) || 0;
-    if(name) counts[name] = count;
-  });
-  saveCounts(counts);
-  return counts;
-}
-function applyCounts(counts){
-  document.querySelectorAll('#activities tbody tr').forEach(tr=>{
-    const tds = tr.querySelectorAll('td');
-    const name = tds[1]?.textContent?.trim();
-    if(name && counts[name] != null){
-      tds[3].textContent = counts[name];
-    }
-  });
+function showSection(id) {
+  var sections = document.querySelectorAll('.content-box');
+  for (var i = 0; i < sections.length; i++) {
+    var s = sections[i];
+    if (s.id === id) s.classList.add('active');
+    else s.classList.remove('active');
+  }
 }
 
-let counts = bootstrapCounts();
-applyCounts(counts);
-
-
-const form = document.getElementById('form-inscription');
-const errorsBox = document.getElementById('form-errors');
-
-form?.addEventListener('submit', (ev)=>{
-  errorsBox.textContent = '';
-  const d = new FormData(form);
-  const errs = [];
-  if(!d.get('nom')?.trim()) errs.push('• Le nom est obligatoire.');
-  if(!d.get('prenom')?.trim()) errs.push('• Le prénom est obligatoire.');
-  if(!d.get('naissance')) errs.push('• La date de naissance est obligatoire.');
-  if(!d.get('sexe')) errs.push('• Le sexe est obligatoire.');
-  if(!d.get('activite')) errs.push('• Choisissez une activité.');
-
-  if(errs.length){
-    ev.preventDefault();
-    errorsBox.textContent = errs.join('\n');
-    return;
+function setupMenuClicks() {
+  var items = document.querySelectorAll('.menu .item');
+  for (var i = 0; i < items.length; i++) {
+    (function (tr) {
+      tr.addEventListener('click', function (e) {
+        var target = tr.getAttribute('data-target');
+        if (target) {
+          e.preventDefault();
+          showSection(target);
+        }
+      });
+    })(items[i]);
   }
 
-  ev.preventDefault();
-  const chosen = d.get('activite');
-  counts[chosen] = (counts[chosen] || 0) + 1;
-  saveCounts(counts);
-  applyCounts(counts);
-  alert("Inscription enregistrée ! Le nombre d’inscrits a été mis à jour.");
-  form.reset();
+  var anchors = document.querySelectorAll('.menu .item > td > a');
+  for (i = 0; i < anchors.length; i++) {
+    anchors[i].addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var tr = this.closest('.item');
+      if (tr) {
+        var t = tr.getAttribute('data-target');
+        if (t) showSection(t);
+      }
+    });
+  }
+}
+
+function readTableRows() {
+  var out = [];
+  var tbody = document.querySelector('#' + TABLE_ID + ' tbody');
+  if (!tbody) return out;
+  var rows = tbody.querySelectorAll('tr');
+  for (var i = 0; i < rows.length; i++) {
+    var tds = rows[i].querySelectorAll('td');
+    var name = tds[1].textContent.trim();
+    var count = parseInt(tds[3].textContent.trim());
+    out.push({ name: name, tr: rows[i], count: count });
+  }
+  return out;
+}
+
+function applyCountsToTable(counts) {
+  var rows = readTableRows();
+  for (var i = 0; i < rows.length; i++) {
+    var r = rows[i];
+    if (counts[r.name] !== undefined) {
+      var tds = r.tr.querySelectorAll('td');
+      tds[3].textContent = counts[r.name];
+    }
+  }
+}
+
+function fillActivitiesSelectFromTable() {
+  var select = document.getElementById(SELECT_ID);
+  if (!select) return;
+  var opts = select.querySelectorAll('option');
+  for (var i = opts.length - 1; i >= 0; i--) {
+    if (opts[i].value !== '') opts[i].remove();
+  }
+  var rows = readTableRows();
+  for (i = 0; i < rows.length; i++) {
+    var option = document.createElement('option');
+    option.value = rows[i].name;
+    option.textContent = rows[i].name;
+    select.appendChild(option);
+  }
+}
+
+function setupFormBehavior(counts) {
+  var form = document.getElementById(FORM_ID);
+  var errorsBox = document.getElementById('form-errors');
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+
+    var fd = new FormData(form);
+    var nom = fd.get('nom').trim();
+    var prenom = fd.get('prenom').trim();
+    var naissance = fd.get('naissance');
+    var sexe = fd.get('sexe');
+    var activite = fd.get('activite');
+
+    var errors = [];
+    if (!nom) errors.push('• Le nom est obligatoire.');
+    if (!prenom) errors.push('• Le prénom est obligatoire.');
+    if (!naissance) errors.push('• La date de naissance est obligatoire.');
+    if (!sexe) errors.push('• Le sexe est obligatoire.');
+    if (!activite) errors.push('• Choisissez une activité.');
+
+    if (errors.length > 0) {
+      errorsBox.textContent = errors.join('\n');
+      return;
+    }
+
+    counts[activite] = counts[activite] + 1;
+    applyCountsToTable(counts);
+
+    errorsBox.textContent = '';
+    alert('Inscription enregistrée — tableau mis à jour.');
+    form.reset();
+    showSection('accueil');
+  });
+
+  form.addEventListener('reset', function () {
+    errorsBox.textContent = '';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  setupMenuClicks();
+  var counts = {};
+  var rows = readTableRows();
+  for (var i = 0; i < rows.length; i++) {
+    counts[rows[i].name] = rows[i].count;
+  }
+  fillActivitiesSelectFromTable();
+  setupFormBehavior(counts);
   showSection('accueil');
 });
-
-form?.addEventListener('reset', ()=> errorsBox.textContent = '');
